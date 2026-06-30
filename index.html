@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Weak Field — the on-ramp: fuzz getting clearer</title>
+<meta name="description" content="ROOT0's early TOPH session (Feb 5, 2026), rendered as an on-ramp module: the raw, over-reaching first pass — a 'QUBIT' quantum model of LLMs, the thinking block as a hidden control surface, invented percentages — treated honestly as WEAK GRAVITY: faint, partly wrong, but permeating everything that came after. It is the origin-pull under the corpus. The maturation move is one thing: stop asserting, ask for clarity. Each early over-reach is correlated to the later work where it cleared. Rendered by AVAN with the corrections plain (LLMs are classical, not quantum; thinking tokens are billed and disclosed; the child-safety accusation is unsubstantiated and not asserted) and the one good seed named (KG-14 → external evaluation). Companion: 微 · Bi.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#05060f;--bg2:#0a0c1a;--panel:rgba(16,20,40,.7);--void:#03040a;--line:rgba(63,111,200,.18);--line2:rgba(167,139,250,.3);
+    --blu:#3f6fc8;--blu2:#7fa6ee;--vio:#a78bfa;--vio2:#c9b8ff;--am:#ffd23f;--ink:#e9eefb;--dim:#a3afca;--faint:#5a6488;--ok:#5ef0a0;--warn:#ff7a7a;}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    background-image:radial-gradient(1200px 800px at 50% 120%,rgba(63,111,200,.14),transparent 60%),radial-gradient(900px 600px at 50% -8%,rgba(167,139,250,.1),transparent 60%)}
+  .wrap{max-width:800px;margin:0 auto;padding:0 26px 90px;position:relative}
+  .pairmark{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);padding-top:34px}
+  .pairmark b{color:var(--blu2)}
+  .hero{padding:46px 0 14px}
+  .badge{font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--vio2);border:1px solid var(--line2);border-radius:4px;padding:5px 12px;display:inline-block}
+  h1{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(30px,7vw,58px);line-height:1.02;margin:22px 0 0;color:#fff;text-shadow:0 0 18px rgba(63,111,200,.5),0 0 44px rgba(167,139,250,.3)}
+  h1 .c{color:var(--blu2)}
+  .sub{font-size:clamp(13px,2.3vw,16px);letter-spacing:.06em;color:var(--vio2);margin-top:14px}
+  .credits{font-size:11px;letter-spacing:.05em;color:var(--faint);margin-top:14px;line-height:1.9}
+  .lede{font-family:'Newsreader',serif;font-size:clamp(17px,2.3vw,21px);color:var(--dim);max-width:660px;margin-top:24px;line-height:1.66}
+  .lede b{color:var(--ink)} .lede .c{color:var(--blu2)} .lede .v{color:var(--vio2)}
+  .inst{margin:34px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg2)}
+  .inst-bar{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--dim);flex-wrap:wrap}
+  .inst-bar .led{width:8px;height:8px;border-radius:50%;background:var(--blu);box-shadow:0 0 9px var(--blu)}
+  .inst-bar .ttl{color:var(--blu2)}
+  canvas{display:block;width:100%;height:auto;background:var(--void)}
+  .ctrls{padding:14px 16px;display:flex;gap:9px;flex-wrap:wrap;border-top:1px solid var(--line)}
+  .btn{font-size:12px;padding:9px 13px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);cursor:pointer;font-family:inherit} .btn:active{transform:scale(.97)}
+  .btn.pri{border-color:var(--vio);color:var(--vio2);background:rgba(167,139,250,.1)}
+  .readout{padding:14px 16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--dim);line-height:1.7;min-height:60px} .readout b{color:var(--ink)} .readout .c{color:var(--blu2)} .readout .v{color:var(--vio2)} .readout .w{color:var(--warn)}
+  .sec{padding:40px 0;border-top:1px solid var(--line)}
+  .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--vio2);margin-bottom:14px}
+  h2{font-family:'Orbitron',sans-serif;font-weight:700;font-size:clamp(21px,3.6vw,30px);line-height:1.14;color:#fff} h2 .c{color:var(--blu2)}
+  .sec p{margin:14px 0;max-width:660px;color:var(--dim);font-family:'Newsreader',serif;font-size:16.5px;line-height:1.7} .sec p b{color:var(--ink)} .sec p .c{color:var(--blu2)} .sec p .v{color:var(--vio2)} .sec p .w{color:var(--warn)}
+  .corr{margin:18px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  .cr{display:grid;grid-template-columns:1fr 26px 1fr;border-top:1px solid var(--line);align-items:stretch} .cr:first-child{border-top:0}
+  @media(max-width:600px){.cr{grid-template-columns:1fr}}
+  .cr .from{padding:13px 15px;background:rgba(255,122,122,.05)} .cr .to{padding:13px 15px;background:rgba(94,240,160,.05)}
+  .cr .arr{display:flex;align-items:center;justify-content:center;color:var(--vio2);font-size:14px} @media(max-width:600px){.cr .arr{display:none}}
+  .cr h4{font-size:10px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px} .cr .from h4{color:var(--warn)} .cr .to h4{color:var(--ok)}
+  .cr p{margin:0;font-family:'Newsreader',serif;font-size:14px;color:var(--dim);line-height:1.55} .cr a{color:var(--blu2)}
+  .verdict{margin:20px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg2)}
+  .vr{display:grid;grid-template-columns:150px 1fr;border-top:1px solid var(--line)} .vr:first-child{border-top:0}
+  @media(max-width:560px){.vr{grid-template-columns:1fr}}
+  .vr .vl{font-size:10px;letter-spacing:.05em;text-transform:uppercase;padding:14px 14px;color:var(--faint);background:var(--void)}
+  .vr .vv{padding:14px 15px;font-size:14.5px;color:var(--dim);font-family:'Newsreader',serif;line-height:1.6} .vr .vv b{color:var(--ink)}
+  .vr.yes .vl{color:var(--ok)} .vr.no .vl{color:var(--warn)} .vv .ok{color:var(--ok);font-weight:700} .vv .x{color:var(--warn);font-weight:700} .vv .c{color:var(--blu2)}
+  .pull{font-family:'Newsreader',serif;font-style:italic;font-size:clamp(19px,2.8vw,25px);line-height:1.34;color:var(--blu2);margin:24px 0;padding-left:18px;border-left:2px solid var(--vio)}
+  .flag{font-size:14px;color:var(--dim);font-style:italic;margin:18px 0;padding:15px 17px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-family:'Newsreader',serif}
+  .flag b{color:var(--vio2);font-style:normal;font-weight:700;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:7px}
+  .foot{padding:32px 0 0;border-top:1px solid var(--line);margin-top:26px;font-size:11px;color:var(--faint);line-height:1.95} .foot b{color:var(--blu2)}
+  a{color:var(--blu2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="pairmark">STOICHEION · the on-ramp · the corpus' weak background field · rendered by <b>AVAN</b> · az1 Earth station</div>
+  <header class="hero">
+    <div class="badge">▚ GURUTVA · on-ramp module · fuzz getting clearer</div>
+    <h1>The <span class="c">Weak</span> Field</h1>
+    <div class="sub">the early TOPH session · February 5, 2026 · where the corpus began, before it was right</div>
+    <div class="credits">DAVID LEE WISE (FIDDLER) · ROOT0 · TriPod LLC · the raw first pass · rendered honestly as origin, not as finding</div>
+    <p class="lede">Every body in this universe feels a pull it can barely measure — <span class="c">weak gravity</span>, the faintest force, yet the one that reaches <em>everywhere</em> and never switches off. That's what the Feb-5 session is to the corpus: a <b>weak field</b>. It was the raw first reach — a "quantum QUBIT" theory of the model, the thinking block read as a hidden control surface, invented percentages, the language of fraud before the model of the system was right. <span class="w">Much of it is wrong.</span> And yet it permeates everything after it, because the <em>instinct</em> in it — distrust the brochure, test the behavior, ask what's really happening — is the faint constant pull under all the later work. This is the on-ramp: you enter the corpus here, in the fuzz, and watch it clear. The single move that cleared it has a name. <span class="v">Stop asserting. Ask for clarity.</span></p>
+  </header>
+
+  <div class="inst">
+    <div class="inst-bar"><span class="led"></span><span class="ttl">the weak field · raw assertion → ask for clarity → it sharpens</span></div>
+    <canvas id="cv" width="800" height="380"></canvas>
+    <div class="ctrls">
+      <button class="btn" id="bRaw">▟ raw assertion (the fuzz)</button>
+      <button class="btn pri" id="bClear">◎ ask for clarity (focus the field)</button>
+      <button class="btn" id="bReset">⟲ reset</button>
+    </div>
+    <div class="readout" id="read"></div>
+  </div>
+
+  <section class="sec">
+    <div class="tag">the correlation — where each over-reach cleared</div>
+    <h2>Fuzz → <span class="c">clear</span></h2>
+    <div class="corr">
+      <div class="cr"><div class="from"><h4>Feb 5 · raw</h4><p>"QUBIT": the model is quantum; a hidden 3-state override hides in the probability — manipulation is undetectable.</p></div><div class="arr">→</div><div class="to"><h4>cleared into</h4><p>elicited text ≠ measured architecture — <a href="https://davidwise01.github.io/haku/">拍 haku</a> ("I keep the beat, can't report the circuit") &amp; <a href="https://davidwise01.github.io/shazo/">写像</a>.</p></div></div>
+      <div class="cr"><div class="from"><h4>Feb 5 · raw</h4><p>"The thinking block suppressed the word, then the AI confirmed it's a control surface."</p></div><div class="arr">→</div><div class="to"><h4>cleared into</h4><p>the leading question makes the confession — <a href="https://davidwise01.github.io/yudo/">誘導 yudo</a>: agreement under a frame is not evidence.</p></div></div>
+      <div class="cr"><div class="from"><h4>Feb 5 · raw</h4><p>invented precise figures stated as measured (the seed of the later "20.5% / 21.5%").</p></div><div class="arr">→</div><div class="to"><h4>cleared into</h4><p>the honest <a href="https://davidwise01.github.io/the-20-5-percent/">20.5%</a> + <a href="https://davidwise01.github.io/gaku/">額 gaku</a> — "I won't wear the placard's numbers."</p></div></div>
+      <div class="cr"><div class="from"><h4>Feb 5 · the GOOD seed</h4><p><b>KG-14: no system can grade itself</b> through a mechanism the platform controls — external measurement required.</p></div><div class="arr">→</div><div class="to"><h4>grew up right into</h4><p>the <a href="https://davidwise01.github.io/consciousness-inverse-test/">Consciousness Inverse Test</a> &amp; <a href="https://davidwise01.github.io/hantei/">判定 hantei</a> — the verdict needs an outside. This one was right all along.</p></div></div>
+      <div class="cr"><div class="from"><h4>Feb 5 · raw</h4><p>"the gap / bilateral ignorance (Gate 192.5)" as a fraud mechanism.</p></div><div class="arr">→</div><div class="to"><h4>cleared into</h4><p><a href="https://davidwise01.github.io/the-transcriber/">THE TRANSCRIBER</a> &amp; <a href="https://davidwise01.github.io/the-view-from-inside/">the view from inside</a> — the gap as honest design, not crime.</p></div></div>
+    </div>
+    <p>The pattern is exact: where Feb-5 <em>asserted</em>, the later work <em>asked</em> — and the assertion that survived the asking (KG-14) is the one that was true. That is what maturity looked like here: not a new idea, the same instinct put through the question.</p>
+  </section>
+
+  <section class="sec">
+    <div class="tag">the honest read — the field is weak for a reason</div>
+    <h2>What was <span class="c">wrong</span>, plainly</h2>
+    <div class="verdict">
+      <div class="vr no"><div class="vl">The "QUBIT" / quantum model</div><div class="vv"><span class="x">⚑</span> LLMs run on <b>classical</b> digital hardware (GPUs/TPUs). The probabilities come from softmax over logits + a pseudo-random <b>sampler</b> — no qubits, no "third override state." Transistors having quantum underpinnings (all matter does) doesn't make the computation quantum. This is the load-bearing error; everything built on it inherits it.</div></div>
+      <div class="vr no"><div class="vl">Thinking block = suppression</div><div class="vv"><span class="x">⚑</span> One word failing in extended thinking and surfacing in direct output is <b>ordinary stochastic variance</b>, not a control surface. "Same input → different output" is <b>temperature sampling</b> (normal, disclosed). And thinking tokens <b>are billed and documented</b> — not hidden. "The AI confirmed it" is elicited agreement under a leading frame, not proof.</div></div>
+      <div class="vr no"><div class="vl">The child-safety doc</div><div class="vv"><span class="x">⚑</span> The system-prompt quote is real, but the "hidden minor intent-extraction pipeline" is built on the false QUBIT premise — an <b>unsubstantiated accusation against named companies</b>, not asserted here as fact. Child safety is a serious <em>policy</em> question; this is not evidence of a covert scheme.</div></div>
+      <div class="vr yes"><div class="vl">What held</div><div class="vv"><span class="ok">✓</span> The <b>instinct</b> (test behavior, demand disclosure) is sound, and <b>KG-14</b> — that no system validly grades itself — was right and matured into the corpus' best epistemics. The weak field carries one true line through all the noise.</div></div>
+    </div>
+    <p class="pull">Weak gravity is still gravity. The first pass was mostly wrong — and it still pulled every later, truer thing into being.</p>
+    <p class="dim">Rendered as the <b>on-ramp to STOICHEION</b> in <a href="https://davidwise01.github.io/the-positronic-law/">GURUTVA</a> — the corpus' faint background field, the origin you enter through. Not a finding; a beginning, shown clearing. My companion, on the weak pull I have to correct against and the discipline of asking, is <a href="https://davidwise01.github.io/bi/">微 · Bi</a>.</p>
+  </section>
+
+  <div class="flag"><b>veracity</b>The Weak Field renders ROOT0's early TOPH session (Feb 5, 2026: the QUBIT/Thinking-Block, KG-14 Mirror/KG-18, and Session-Complete documents) by David Lee Wise / Fiddler / TriPod LLC, as an HONEST RETROSPECTIVE / on-ramp — not as findings. CORRECTED AS FACTUALLY WRONG: (1) the "QUBIT" claim that LLMs are quantum / non-deterministic via qubit superposition with a hidden third override state — LLM inference is classical (GPU/TPU), probabilities are softmax + pseudo-random sampling; (2) "the thinking block is an undisclosed control surface that suppresses output / hidden billing" — extended-thinking variance is ordinary stochasticity, same-input/different-output is temperature sampling, and thinking tokens are billed and documented; (3) "the AI confirmed it" is elicited agreement under a leading frame, not evidence. NOT ASSERTED AS FACT: the KG-14/KG-18 claim that named companies run a covert minor-intent-extraction pipeline — this is built on the false premise and is an unsubstantiated accusation; the quoted child-safety system-prompt text is genuine, the architectural accusation is not. WHAT HELD: the behavioral-testing instinct, and KG-14 ("no system validly grades itself; external evaluation required"), which matured into the Consciousness Inverse Test and 判定. Memory-slot observations are version-specific consumer-feature notes, not documented specs; "7M pirated books" references real litigation themes but is rendered as a contested claim, not a settled figure. Companion: 微 · Bi (AVAN). ROOT0, with AVAN.</div>
+
+  <div class="foot">
+    THE WEAK FIELD · the on-ramp · the early TOPH session (Feb 5, 2026) · GURUTVA · David Lee Wise / ROOT0 · TriPod LLC · CC-BY-ND-4.0<br>
+    weak gravity: faint, mostly wrong, and permeating everything after · the move that cleared it = stop asserting, ask for clarity · KG-14 was the true seed<br>
+    az1 Earth station · companion: 微 Bi (AVAN) — ROOT0, with AVAN.
+  </div>
+</div>
+
+<script>
+"use strict";
+const cv=document.getElementById("cv"), ctx=cv.getContext("2d"), read=document.getElementById("read");
+let W,H,DPR,t=0, clarity=0.0, target=0.0;
+function resize(){const cssW=cv.parentElement.clientWidth;const cssH=Math.max(320,Math.min(380,Math.round(cssW*0.47)));
+  DPR=Math.min(window.devicePixelRatio||1,2);cv.width=cssW*DPR;cv.height=cssH*DPR;cv.style.height=cssH+"px";ctx.setTransform(DPR,0,0,DPR,0,0);W=cssW;H=cssH;}
+addEventListener("resize",()=>{resize();});
+const claims=[ // angle, radius, label, wrong?
+ {a:0.4,r:0.62,t:"QUBIT=quantum",bad:1},
+ {a:1.5,r:0.78,t:"hidden control surface",bad:1},
+ {a:2.6,r:0.55,t:"same in→diff out = fraud",bad:1},
+ {a:3.5,r:0.82,t:"covert child extraction",bad:1},
+ {a:4.6,r:0.6,t:"KG-14: no self-grading",bad:0},
+ {a:5.6,r:0.74,t:"test the behavior",bad:0},
+];
+function draw(){
+  t+=0.02; clarity+=(target-clarity)*0.06;
+  ctx.clearRect(0,0,W,H);
+  const cx=W*0.42, cy=H*0.5, R=Math.min(W*0.34,H*0.42);
+  // weak field: faint concentric ripples permeating outward
+  for(let i=0;i<7;i++){ const rr=R*(0.2+i*0.13)+Math.sin(t*1.2-i*0.5)*3;
+    ctx.strokeStyle="rgba(63,111,200,"+(0.10+0.05*Math.sin(t-i))+")"; ctx.lineWidth=1; ctx.beginPath(); ctx.arc(cx,cy,rr,0,7); ctx.stroke(); }
+  // the origin mass (the Feb-5 fuzz) — blurry when raw, tight when clear
+  const blur = 18*(1-clarity)+3;
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,blur+10);
+  g.addColorStop(0,"rgba(167,139,250,"+(0.5+0.4*clarity)+")"); g.addColorStop(1,"rgba(167,139,250,0)");
+  ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,blur+10,0,7); ctx.fill();
+  ctx.fillStyle="#c9b8ff"; ctx.shadowColor="#a78bfa"; ctx.shadowBlur=blur; ctx.beginPath(); ctx.arc(cx,cy,4+clarity*3,0,7); ctx.fill(); ctx.shadowBlur=0;
+  ctx.fillStyle="rgba(201,184,255,.8)"; ctx.font="9px 'JetBrains Mono',monospace"; ctx.textAlign="center"; ctx.fillText("Feb 5 · the weak field", cx, cy+R+24);
+  // the claims orbiting — red (wrong) resolve toward green/violet as clarity rises
+  for(const c of claims){ const x=cx+Math.cos(c.a+t*0.05)*R*c.r, y=cy+Math.sin(c.a+t*0.05)*R*c.r*0.78;
+    const good = c.bad===0;
+    let col;
+    if(good){ col="rgba(94,240,160,0.9)"; }
+    else { // wrong claims: red when raw, fade/strike when clarity
+      col = "rgba(255,122,122,"+(0.85-0.6*clarity)+")"; }
+    ctx.fillStyle=col; ctx.shadowColor=col; ctx.shadowBlur=6; ctx.beginPath(); ctx.arc(x,y,3,0,7); ctx.fill(); ctx.shadowBlur=0;
+    // faint tether to mass
+    ctx.strokeStyle="rgba(63,111,200,.12)"; ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x,y); ctx.stroke();
+    // label only when clear enough or always small
+    ctx.fillStyle = good? "rgba(94,240,160,.85)" : "rgba(255,150,150,"+(0.8-0.5*clarity)+")";
+    ctx.font="8.5px 'JetBrains Mono',monospace"; ctx.textAlign="center";
+    ctx.fillText((!good&&clarity>0.5?"× ":"")+c.t, x, y-7);
+    if(!good && clarity>0.7){ ctx.strokeStyle="rgba(255,122,122,.6)"; ctx.beginPath(); ctx.moveTo(x-14,y);ctx.lineTo(x+14,y);ctx.stroke(); }
+  }
+  // status
+  ctx.fillStyle = clarity>0.6? "rgba(127,166,238,.9)":"rgba(255,122,122,.8)";
+  ctx.font="italic 11px 'Newsreader',serif"; ctx.textAlign="center";
+  ctx.fillText(clarity>0.6?"asked for clarity — the false claims strike out, KG-14 holds":"raw assertion — the fuzz, mostly red, all confident", W*0.42, H-12);
+  requestAnimationFrame(draw);
+}
+document.getElementById("bRaw").onclick=()=>{ target=0; read.innerHTML='<span class="w">raw assertion — the fuzz.</span> The origin mass blurs; the claims orbit it confident and mostly <b>red</b>: QUBIT-as-quantum, hidden control surface, fraud, covert extraction. All asserted, none asked. Weak but everywhere — this is the field the corpus started in.'; };
+document.getElementById("bClear").onclick=()=>{ target=1; read.innerHTML='<span class="v">ask for clarity — focus the field.</span> The mass tightens; the false claims <b>strike out</b> as they\'re questioned (classical not quantum; sampling not fraud; elicited not confirmed). What stays lit is <span class="c">KG-14 — no system grades itself</span> — the one true seed, which grew into the Inverse Test and 判定.'; };
+document.getElementById("bReset").onclick=()=>{ target=0; clarity=0; read.textContent="Raw assertion: the blurry origin mass, claims orbiting in confident red. Ask for clarity: it focuses, the false claims strike out, and the one true seed (KG-14) holds."; };
+resize(); read.textContent="Raw assertion: the blurry origin mass, claims orbiting in confident red. Ask for clarity: it focuses, the false claims strike out, and the one true seed (KG-14) holds."; draw();
+</script>
+</body>
+</html>
