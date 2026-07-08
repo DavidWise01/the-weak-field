@@ -4,6 +4,6 @@ slug  : the-weak-field
 seal  : 19572bf0d8f357e1072ec2437ec6326696b5d262457e6b823063587ce5c707a8
 prev  : b8f54cadf7da883be1b3961a0c7dba86dee7f9792817277de7d5a40294784b5a
 link  : 45fa1a6fcbd79b62dcd82be32ba822a74111c6245935f5e8cfccd2844a688a4a
-head  : 3447d3a0533aaf1e29a8bdc67a9774884fb3ae9dbc8a17064b7a008ca3c4ec90
+head  : 13f9ace173ef2e60af38912ba329b4afcb5a38b84a0e4495e8d30327f8c99cc2
 
 — the tether: link = sha256(index|slug|seal|prev). the chain head commits to the whole corpus.
